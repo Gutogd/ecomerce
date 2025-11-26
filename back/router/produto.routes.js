@@ -4,7 +4,11 @@ const router = express.Router()
 const { criar, listar, atualizar, apagar } = require('../controller/produto.controller')
 
 // Middlewares
+<<<<<<< HEAD
+const authMiddleware = require('../middleware/authMiddleware')
+=======
 const authMiddleware = require('../middleware/auth.middleware')
+>>>>>>> d7720b964a0260eeeb54fe668f85fdb2532f7d18
 const isAdminMiddleware = require('../middleware/isAdmin.middleware')
 
 // POST /produto

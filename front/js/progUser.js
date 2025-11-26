@@ -1,5 +1,15 @@
 let res = document.getElementById('res')
 let btnUs = document.getElementById('btnUs')
+<<<<<<< HEAD
+let usuarioLogado = document.getElementById('usuarioLogado')
+
+let nome = sessionStorage.getItem('nome')
+
+if (nome) {
+    usuarioLogado.innerHTML = `Olá, ${nome}!`
+}
+=======
+>>>>>>> d7720b964a0260eeeb54fe668f85fdb2532f7d18
 
 btnUs.addEventListener('click', (e)=>{
     e.preventDefault()
@@ -34,6 +44,12 @@ btnUs.addEventListener('click', (e)=>{
     .then(valores => {
         res.innerHTML = ``
         res.innerHTML += `Usuario cadastrado com sucesso!`
+<<<<<<< HEAD
+        setTimeout(()=>{
+            window.location.href = "../index.html"
+        }, 1000)
+=======
+>>>>>>> d7720b964a0260eeeb54fe668f85fdb2532f7d18
 
     })
     .catch((err)=>{
