@@ -1,0 +1,26 @@
+===============================================================
+ Código fonte (back e front end)                              |
+- imagens (jpg, png ou webp)                                  |
+- modelagem (UML - caso de uso geral e diagrama de classe )   |
+- engenharia reversa do modelo                                |
+- sistema de login com bcrypt ( testar )                      |
+- validação de CPF ( testar )                                 |
+- validação com regex                                         |
+- validação com front end                                     |
+- endereços a partir do VIACEP                                |
+- carrinho e resumo de compra                                 | 
+- acesso admin e usuário (separado)                           |
+- modelo mínimo de 6 tabelas                                  |
+===============================================================
+
+
+1 - deixar os models perfeitos para o intuito da loja (harley's)
+2 - comecar os controller's 
+3 - verificar se tudo esta funcionando ( regex, bcrypt, jwt e etc..)
+4 - index.js e testes finais/ finalizar totalmente o back
+5 - comecar o front, base e tudo
+6 - fazer os arquivos mais complicados e testar se front e back estao se comunicando como deveriam
+7 - finalizar o front
+8 - estilizar a pagina
+9 - acabamentos e etc
+10 - QUE DEUS ME AJUDE 

@@ -33,7 +33,7 @@ const Produto = db.define('produto',{
         defaultValue: true // Por padrão, o produto está visível para venda
     }
 },{
-    timestamps: true,
+    timestamps: false,
     tableName: 'produtos'
 })
 

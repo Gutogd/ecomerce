@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const db = require('../db/conn') 
+const db = require('../db/conn')
 
 const Pedido = db.define('pedido',{
     codPedido: {
@@ -41,7 +41,7 @@ const Pedido = db.define('pedido',{
         defaultValue: 0.00
     }
 },{
-    timestamps: true,
+    timestamps: false,
     tableName: 'pedidos'
 })
 

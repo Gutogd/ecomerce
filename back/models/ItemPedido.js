@@ -38,12 +38,12 @@ const ItemPedido = db.define('itemPedido',{
         defaultValue: 0.00
     }
 },{
-    // Chave composta para garantir que o mesmo produto só possa aparecer uma vez por pedido
+   
     indexes: [{
         unique: true,
         fields: ['idPedido', 'idProduto']
     }],
-    timestamps: false, // Geralmente desativado em tabelas N:N puras 
+    timestamps: false, 
     tableName: 'itens_pedidos'
 })
 

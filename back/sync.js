@@ -1,4 +1,4 @@
-const conn = require('./db/conn') 
+const conn = require('./db/conn')
 
 const { 
     Usuario, 

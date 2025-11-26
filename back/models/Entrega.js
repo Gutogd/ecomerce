@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const db = require('../db/conn') 
+const db = require('../db/conn')
 
 const Entrega = db.define('entrega',{
     codEntrega: {
@@ -59,7 +59,7 @@ const Entrega = db.define('entrega',{
         defaultValue: 'EM_TRANSITO'
     }
 },{
-    timestamps: true,
+    timestamps: false,
     tableName: 'entregas'
 })
 
