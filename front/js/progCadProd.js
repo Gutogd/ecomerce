@@ -42,10 +42,13 @@ btnCad.addEventListener('click', (e)=>{
     .then(valores => {
         res.innerHTML = ``
         res.innerHTML += `Produto cadastrado com sucesso!`
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+        
+
     })
     .catch((err)=>{
         console.error('erro ao cadastrar', err)
     })  
-
-
 })

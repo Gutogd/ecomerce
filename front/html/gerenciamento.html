@@ -3,23 +3,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gerenciar - Peças Automotivas</title>
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/style_gerenciar.css">
 <script src="../js/gerenciarProduto.js" defer></script>
 </head>
 <body>
 <header class="header">
 
 <nav class="nav">
-<span id="nomeUsuario" class="nome-usuario">Usuário</span>
+    <div class="topo">
+        <span id="usuarioLogado"></span>
+    </div>
 
 <a href="#" id="btnLogout">Sair</a>
 </nav>
 </header>
-
-
-<section id="hero" class="hero3">
-<div class="conteudo-gerenciar">
 
 
 <div class="table-wrapper">
@@ -27,14 +23,13 @@
 </div>
 
 
-<div class="right-column">
 
 
 <div class="login-box" id="cadProduto" required>
 <h1>Atualizar Produto</h1>
 <form>
-<label for="codProduto">digite o id</label><br>
-<input type="number" id="codProduto"><br><br>
+<label for="id">digite o id</label><br>
+<input type="number" id="id"><br><br>
 
 
 <h2>Insira novos dados</h2>
@@ -60,20 +55,20 @@
 <input type="text" id="imagem_url"><br><br>
 
 
-<button type="submit" id="btnAtualizarProduto">Atualizar</button>
+<button id="btnAtualizarProduto">Atualizar</button>
 <p class="alerta-atualiza">(Pode atualizar somente um campo)</p>
 </form>
 </div>
 
 
-<div class="login-box delete-box">
+<div class="delete-box">
 <h1>Apagar Produto</h1>
 <form id="formDelete">
 <label for="codDelete">digite o id</label><br>
 <input type="number" id="codDelete"><br><br>
 
 
-<button type="submit" id="btnDelete">Excluir</button>
+<button id="btnDelete">Excluir</button>
 <p class="alerta-delete">Esta ação nao pode ser desfeita após a exclusão</p>
 </form>
 </div>
