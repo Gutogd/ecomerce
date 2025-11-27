@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Estoque</title>
+
+    <script src="../js/estoque.js" defer></script>
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="nav">
+        <span id="usuarioLogado"></span>
+        <a href="./produto.html">Produtos</a>
+        <a href="#" id="btnLogout">Sair</a>
+    </nav>
+</header>
+
+<section id="hero" class="hero3">
+<div class="conteudo-gerenciar">
+
+    <!-- ========================= -->
+    <!--     TABELA DE ESTOQUE     -->
+    <!-- ========================= -->
+ <div id="tabelaEstoqueContainer"></div>
+
+    <!-- ========================= -->
+    <!--   FORMULÁRIO DE MOVIMENTO -->
+    <!-- ========================= -->
+    <div class="right-column">
+
+        <div class="login-box">
+            <h1>Movimentar Estoque</h1>
+            <form id="formMovimentar">
+
+                <label for="idProduto">digite o id do produto</label><br>
+                <input type="number" id="idProduto"><br><br>
+
+                <label for="tipoMovimento">tipo de movimento</label><br>
+                <select id="tipoMovimento">
+                    <option value="entrada">Entrada (+)</option>
+                    <option value="saida">Saída (-)</option>
+                </select><br><br>
+
+                <label for="quantidade">digite a quantidade</label><br>
+                <input type="number" id="quantidade"><br><br>
+
+                <button id="btnMovimentar">Confirmar</button>
+            </form>
+        </div>
+
+</div><!-- END conteudo-gerenciar -->
+</section>
+
+<footer class="footer"></footer>
+
+</body>
+</html>

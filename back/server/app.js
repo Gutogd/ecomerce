@@ -11,15 +11,12 @@ app.use(cors())
 // ---- Rotas ----
 const usuarioRoutes = require('../router/usuario.routes')
 const authRoutes = require('../router/auth.routes')
-
+const estoqueRoutes = require('../router/estoque.router')
 const produtoRoutes = require('../router/produto.routes')
-
-
-
 
 app.use('/usuario', usuarioRoutes)
 app.use('/', authRoutes)
-
+app.use('/estoque', estoqueRoutes);
 
 app.use('/produto',produtoRoutes);
 

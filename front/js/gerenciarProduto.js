@@ -1,11 +1,30 @@
-let res = document.getElementById('resListar')
-let btnAtualizarProduto = document.getElementById('btnAtualizarProduto')
+let res = document.getElementById('resListar');
+let btnAtualizarProduto = document.getElementById('btnAtualizarProduto');
+let usuarioLogado = document.getElementById('usuarioLogado');
 
-let nome = sessionStorage.getItem('nome');
-if (nome) {
-    usuarioLogado.innerHTML = `Olá, ${nome}!`;
+// mostrar usuário
+let nomeUser = sessionStorage.getItem('nome');
+if (nomeUser) {
+    usuarioLogado.innerHTML = `Olá, ${nomeUser}!`;
 }
 
+// ===================== LISTAR PRODUTOS =====================
+window.onload = carregarProdutos;
+
+function carregarProdutos() {
+    const token = sessionStorage.getItem('token');
+
+    fetch("http://localhost:3000/produto", {
+        headers: { 'Authorization': `Bearer ${token}` }
+    })
+    .then(r => r.json())
+    .then(dados => {
+         document.getElementById("resListar").innerHTML = gerarTabela(dados)
+    })
+    .catch(err => console.error("Erro ao listar:", err));
+}
+
+// ===================== ATUALIZAR =====================
 btnAtualizarProduto.addEventListener('click', (e) => {
     e.preventDefault()
 
@@ -16,19 +35,14 @@ btnAtualizarProduto.addEventListener('click', (e) => {
     let preco = document.getElementById('preco').value
     let imagem_url = document.getElementById('imagem_url').value
 
-    const dados = {
-        nome: nome,
-        descricao: descricao,
-        modelo: modelo,
-        preco: preco,
-        imagem_url: imagem_url
+    const dados = { nome, descricao, modelo, preco, imagem_url }
+
+    // remove campos vazios
+    for (let key in dados) {
+        if (!dados[key]) delete dados[key]
     }
 
-    for (let key in dados) {
-        if (dados[key] === "" || dados[key] === null) {
-            delete dados[key];
-        }
-    }
+    const token = sessionStorage.getItem('token')
 
     fetch(`http://localhost:3000/produto/${id}`, {
         method: 'PATCH',
@@ -38,101 +52,68 @@ btnAtualizarProduto.addEventListener('click', (e) => {
         },
         body: JSON.stringify(dados)
     })
-        .then(resp => {
-            if (!resp.ok) {
-                throw new Error("Erro ao atualizar!");
-            }
-            return resp.json();
-        })
-
-        .then(dados => {
-            alert('Produto atualizado com sucesso!')
-            document.querySelector('form').reset()
-            onload()
-        })
-        .catch((err) => {
-            console.error('Falha ao atualizar produto!', err)
-            alert('Falha ao atualizar produto!')
-        })
+    .then(resp => resp.json())
+    .then(() => {
+        alert("Produto atualizado!")
+        document.querySelector('form').reset()
+        carregarProdutos()
+    })
+    .catch(err => console.error("Erro ao atualizar:", err))
 })
 
-let btnDelete = document.getElementById('btnDelete')
 
+// ===================== DELETE =====================
 document.getElementById('formDelete').addEventListener('submit', (e) => {
     e.preventDefault()
 
-    let id = Number(document.getElementById('id').value)
-
-    if (!id) {
-        alert("Informe um código válido!")
-        return
-    }
-
-    if (!confirm("Tem certeza que deseja excluir este produto?")) return
+    let id = Number(document.getElementById('codDelete').value)
+    const token = sessionStorage.getItem('token')
 
     fetch(`http://localhost:3000/produto/${id}`, {
         method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
     })
-        .then(resp => {
-            if (!resp.ok) throw new Error("Erro ao apagar!")
-            return resp.json()
-        })
-        .then(() => {
-            alert('Produto apagado com sucesso!')
-            document.getElementById('formDelete').reset()
-            onload() // atualiza a tabela
-        })
-        .catch(err => {
-            console.error('Erro ao apagar produto!', err)
-            alert('Falha ao apagar produto!')
-        })
+    .then(resp => resp.json())
+    .then(() => {
+        alert("Produto apagado!")
+        carregarProdutos()
+    })
+    .catch(err => console.error("Erro ao apagar:", err))
 })
-
-// Escrever nome na tela
-if (nomeUsuario && nome) {
-    nomeUsuario.innerHTML = `Usuário: ${nome}`
-}
-
-// Logout
-btnLogout.addEventListener('click', (e) => {
-    e.preventDefault()
-
-    // Apagar sessão
-    sessionStorage.clear()
-
-    // Voltar para login
-    location.href = '../index.html'
-})
-
 
 function gerarTabela(dados) {
-    let tab = `
-        <thead>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Modelo</th>
-            <th>Preço</th>
-            <th>Imagem (link)</th>
-        </thead>
-    `
-tab += `<tbody>`
-    dados.forEach(dad => {
-        tab += `
-            <tr>
-                <td>${dad.codProduto}</td>
-                <td>${dad.nome}</td>
-                <td>${dad.descricao}</td>
-                <td>${dad.modelo}</td>
-                <td>${dad.preco}</td>
-                <td>${dad.imagem_url}</td>
-            </tr>
-        `
-    })
-    tab += `</tbody>`
+    let tabela = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Modelo</th>
+                    <th>Preço</th>
+                    <th>Imagem</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
 
-    return tab
+    dados.forEach(item => {
+        tabela += `
+            <tr>
+                <td>${item.codProduto}</td>
+                <td>${item.nome}</td>
+                <td>${item.descricao}</td>
+                <td>${item.modelo}</td>
+                <td>${item.preco}</td>
+                <td><a href="${item.imagem_url}" target="_blank">Ver</a></td>
+            </tr>
+        `;
+    });
+
+    tabela += `
+            </tbody>
+        </table>
+    `;
+
+    return tabela;
 }
