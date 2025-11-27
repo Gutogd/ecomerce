@@ -1,12 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento Geral</title>
-    <script src="gerenciamento.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerenciar - Peças Automotivas</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/style_gerenciar.css">
+<script src="../js/gerenciarProduto.js" defer></script>
 </head>
 <body>
-    
+<header class="header">
+
+<nav class="nav">
+<span id="nomeUsuario" class="nome-usuario">Usuário</span>
+
+<a href="#" id="btnLogout">Sair</a>
+</nav>
+</header>
+
+
+<section id="hero" class="hero3">
+<div class="conteudo-gerenciar">
+
+
+<div class="table-wrapper">
+<div class="tabela" id="resListar"></div>
+</div>
+
+
+<div class="right-column">
+
+
+<div class="login-box" id="cadProduto" required>
+<h1>Atualizar Produto</h1>
+<form>
+<label for="codProduto">digite o id</label><br>
+<input type="number" id="codProduto"><br><br>
+
+
+<h2>Insira novos dados</h2>
+
+
+<label for="nome">digite o nome do produto</label><br>
+<input type="text" id="nome"><br><br>
+
+
+<label for="descricao">Digite a descricao</label><br>
+<input type="text" id="descricao"><br><br>
+
+
+<label for="modelo">Digite o modelo</label><br>
+<input type="text" id="modelo"><br><br>
+
+
+<label for="preco">Digite o preço</label><br>
+<input type="text" id="preco"><br><br>
+
+
+<label for="imagem_url">Digite a imagem do produto</label><br>
+<input type="text" id="imagem_url"><br><br>
+
+
+<button type="submit" id="btnAtualizarProduto">Atualizar</button>
+<p class="alerta-atualiza">(Pode atualizar somente um campo)</p>
+</form>
+</div>
+
+
+<div class="login-box delete-box">
+<h1>Apagar Produto</h1>
+<form id="formDelete">
+<label for="codDelete">digite o id</label><br>
+<input type="number" id="codDelete"><br><br>
+
+
+<button type="submit" id="btnDelete">Excluir</button>
+<p class="alerta-delete">Esta ação nao pode ser desfeita após a exclusão</p>
+</form>
+</div>
+
+
+<div class="espaco2"></div>
+</div>
+</div>
+</section>
+
+
+<footer class="footer">
+
+</footer>
+
+
 </body>
 </html>
