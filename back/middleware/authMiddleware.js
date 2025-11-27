@@ -1,7 +1,7 @@
-<<<<<<< HEAD
+
 const { verificarToken } = require('../service/jwt.service')
 
-function authMiddleware(req, res, next) {
+function authMiddleware(req, res, next){
 
 console.log('[AUTH MIDDLEWARE] - Iniciando verificação de token...')
 
@@ -34,7 +34,6 @@ try {
     return res.status(401).json({ erro: "Token inválido ou expirado!" })
 }
 
-=======
 function authMiddleware(req,res,next){
 
     const statusLog = req.query.statusLog
@@ -45,7 +44,6 @@ function authMiddleware(req,res,next){
     }
 
     next()
->>>>>>> d7720b964a0260eeeb54fe668f85fdb2532f7d18
-}
+}}
 
 module.exports = authMiddleware
