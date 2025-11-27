@@ -1,71 +1,63 @@
-const Estoque = require('../models/Estoque')
+const Produto = require('../models/Produto')
 
-async function listarEstoque() {
-    const lista = await Estoque.findAll()
-    return lista
-}
+// ======================== CRIAR ========================
+async function criarProduto(dados) {
 
-async function movimentarEstoque(idProduto, dados) {
+    const { nome, descricao, modelo, preco, imagem_url, ativo } = dados
 
-    const { tipo, quantidade } = dados
-
-    if (!tipo || !quantidade) {
-        throw new Error("Tipo e quantidade são obrigatórios!")
+    if (!nome || !modelo || !preco) {
+        throw new Error('Nome, modelo e preço são obrigatórios!')
     }
 
-    const estoque = await Estoque.findOne({
-        where: { idProduto }
+    const novoProduto = await Produto.create({
+        nome,
+        descricao,
+        modelo,
+        preco,
+        imagem_url,
+        ativo
     })
 
-    if (!estoque) {
-        throw new Error("Produto não encontrado no estoque!")
-    }
-
-    // Lógica de movimentação
-    if (tipo === "entrada") {
-        estoque.quantidade_atual += quantidade
-    } 
-    else if (tipo === "saida") {
-
-        if (estoque.quantidade_atual < quantidade) {
-            throw new Error("Estoque insuficiente!")
-        }
-
-        estoque.quantidade_atual -= quantidade
-    } 
-    else {
-        throw new Error("Tipo de movimento inválido! Use 'entrada' ou 'saida'.")
-    }
-
-    await estoque.save()
-
-    return estoque
+    return novoProduto
 }
 
-async function atualizarMinimo(idProduto, dados) {
-
-    const { quantidade_minima } = dados
-
-    if (quantidade_minima === undefined) {
-        throw new Error("Quantidade mínima deve ser informada!")
-    }
-
-    const estoque = await Estoque.findOne({
-        where: { idProduto }
-    })
-
-    if (!estoque) {
-        throw new Error("Produto não encontrado no estoque!")
-    }
-
-    await estoque.update({ quantidade_minima })
-
-    return estoque
+// ======================== LISTAR ========================
+async function listarProdutos() {
+    const produtos = await Produto.findAll()
+    return produtos
 }
 
+// ======================== ATUALIZAR ========================
+async function atualizarProduto(id, dados) {
 
-module.exports = {
-    listarEstoque,
-    movimentarEstoque,
-    atualizarMinimo
+    const produto = await Produto.findByPk(id)
+
+    if (!produto) {
+        throw new Error('Produto não encontrado!')
+    }
+
+    await produto.update(dados)
+
+    return produto
+}
+
+// ======================== APAGAR ========================
+async function apagarProduto(id) {
+
+    const produto = await Produto.findByPk(id)
+
+    if (!produto) {
+        throw new Error('Produto não encontrado!')
+    }
+
+    await produto.destroy()
+
+    return true
+}
+
+module.exports = { 
+    criarProduto, 
+    listarProdutos, 
+    atualizarProduto, 
+    apagarProduto 
 }
