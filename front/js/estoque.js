@@ -27,26 +27,28 @@ function gerarTabela(lista) {
 
     let tabela = `
         <table border="1" class="tabela-estoque">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>ID Produto</th>
-                    <th>Qtd Atual</th>
-                    <th>Qtd Mínima</th>
-                </tr>
-            </thead>
+          <thead>
+    <tr>
+        <th>Código</th>
+        <th>ID Produto</th>
+        <th>Nome do Produto</th>
+        <th>Qtd Atual</th>
+        <th>Qtd Mínima</th>
+    </tr>
+</thead>
             <tbody>
     `;
 
     lista.forEach(item => {
         tabela += `
-            <tr>
-                <td>${item.codEstoque}</td>
-                <td>${item.idProduto}</td>
-                <td>${item.quantidade_atual}</td>
-                <td>${item.quantidade_minima}</td>
-            </tr>
-        `;
+        <tr>
+            <td>${item.codEstoque}</td>
+            <td>${item.idProduto}</td>
+            <td>${item.produtoEstoque?.nome || "—"}</td>
+            <td>${item.quantidade_atual}</td>
+            <td>${item.quantidade_minima}</td>
+        </tr>
+    `;
     });
 
     tabela += `</tbody></table>`;
@@ -88,7 +90,7 @@ let form = document.getElementById("formMovimentar");
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    let idProduto = document.getElementById("idProduto").value;
+    let idProduto = Number(document.getElementById("idProduto").value)
     let tipo = document.getElementById("tipoMovimento").value;
     let quantidade = document.getElementById("quantidade").value;
 
@@ -119,8 +121,8 @@ form.addEventListener("submit", (e) => {
             alert("Erro: " + resultado.erro);
             return;
         }
-
-        alert("Movimentação realizada com sucesso!");
+        console.log(resultado)
+        alert(resultado.mensagem);
         form.reset();
         carregarTabela();
 

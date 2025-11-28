@@ -1,27 +1,30 @@
 const {
-    listarEstoque,
-    movimentarEstoque,
-    atualizarMinimoEstoque
+    listar,
+    movimentar,
+    atualizarMinimo
 } = require('../service/estoque.service');
 
 // =========================
 //   LISTAR ESTOQUE
 // =========================
-async function listar(req, res) {
+async function listarEstoque(req, res) {
     try {
-        const itens = await listarEstoque();
-        return res.status(200).json(itens);
+        const itens = await listar();
 
+        // Garantir que está vindo array
+        console.log("Resultado do listar():", itens);
+
+        return res.status(200).json(itens);
     } catch (err) {
+        console.error(err);
         return res.status(500).json({ erro: err.message });
     }
 }
 
-
 // =========================
 //   MOVIMENTAR ESTOQUE
 // =========================
-async function movimentar(req, res) {
+async function movimentarEstoque(req, res) {
     try {
         const { idProduto } = req.params;
         const { tipo, quantidade } = req.body;
@@ -30,16 +33,14 @@ async function movimentar(req, res) {
             return res.status(400).json({ erro: "Dados incompletos!" });
         }
 
-        if (!["entrada", "saida"].includes(tipo)) {
-            return res.status(400).json({
-                erro: "O tipo deve ser 'entrada' ou 'saida'"
-            });
-        }
-
-        const movimento = await movimentarEstoque(Number(idProduto), tipo, Number(quantidade));
+        const movimento = await movimentar(
+            Number(idProduto),
+            tipo,
+            Number(quantidade)
+        );
 
         return res.status(200).json({
-            mensagem: "Movimentação realizada com sucesso!",
+            mensagem: movimento.message,
             movimento
         });
 
@@ -48,11 +49,10 @@ async function movimentar(req, res) {
     }
 }
 
-
 // =========================
-//   ATUALIZAR QUANTIDADE MÍNIMA
+//   ATUALIZAR MÍNIMO
 // =========================
-async function atualizarMinimo(req, res) {
+async function atualizarMinimoEstoque(req, res) {
     try {
         const { idProduto } = req.params;
         const { quantidade_minima } = req.body;
@@ -61,13 +61,13 @@ async function atualizarMinimo(req, res) {
             return res.status(400).json({ erro: "Dados incompletos!" });
         }
 
-        const atualizado = await atualizarMinimoEstoque(
+        const atualizado = await atualizarMinimo(
             Number(idProduto),
             Number(quantidade_minima)
         );
 
         return res.status(200).json({
-            mensagem: "Quantidade mínima atualizada com sucesso!",
+            mensagem: "Quantidade mínima atualizada!",
             estoque: atualizado
         });
 
@@ -76,10 +76,9 @@ async function atualizarMinimo(req, res) {
     }
 }
 
-
-// EXPORTA NO MESMO PADRÃO DO PRODUTO
+// === EXPORTAÇÃO CORRETA ===
 module.exports = {
-    listar,
-    movimentar,
-    atualizarMinimo
+    listarEstoque,
+    movimentarEstoque,
+    atualizarMinimoEstoque
 };

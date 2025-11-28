@@ -10,6 +10,12 @@ if (nome) {
     usuarioLogado.innerHTML = `Olá, ${nome}!`
 }
 
+document.getElementById("btnLogout").addEventListener("click", (e) => {
+    e.preventDefault();
+    sessionStorage.clear();
+    location.href = "../index.html";
+});
+
 
 btnCad.addEventListener('click', (e)=>{
 

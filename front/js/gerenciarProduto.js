@@ -8,6 +8,12 @@ if (nomeUser) {
     usuarioLogado.innerHTML = `Olá, ${nomeUser}!`;
 }
 
+document.getElementById("btnLogout").addEventListener("click", (e) => {
+    e.preventDefault();
+    sessionStorage.clear();
+    location.href = "../index.html";
+});
+
 // ===================== LISTAR PRODUTOS =====================
 window.onload = carregarProdutos;
 

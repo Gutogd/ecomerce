@@ -1,40 +1,85 @@
-const Estoque = require('../models/Estoque');
-const Produto = require('../models/Produto');
+const { Estoque, Produto } = require('../models/rel');
 
-module.exports = {
-    
-    async listar() {
-        return await Estoque.findAll();
-    },
+// ==========================
+// LISTAR ESTOQUE
+// ==========================
+async function listar() {
+    return await Estoque.findAll({
+        include: [
+            {
+                model: Produto,
+                as: 'produtoEstoque'
+            }
+        ]
+    });
+}
 
-    async movimentar(idProduto, tipo, quantidade) {
-        const estoque = await Estoque.findOne({ where: { idProduto } });
+// ==========================
+// MOVIMENTAR ESTOQUE
+// ==========================
+async function movimentar(idProduto, tipo, quantidade) {
+    try {
 
-        if (!estoque) throw new Error("Produto não encontrado no estoque!");
+        let estoque = await Estoque.findOne({ where: { idProduto } });
+
+        if (!estoque) {
+            estoque = await Estoque.create({
+                idProduto,
+                quantidade_atual: 0,
+                quantidade_minima: 5        // já cria com o mínimo de 5
+            });
+        }
+
+        // força número
+        estoque.quantidade_atual = Number(estoque.quantidade_atual);
 
         if (tipo === "entrada") {
-            estoque.quantidade_atual += quantidade;
+
+            estoque.quantidade_atual = estoque.quantidade_atual + Number(quantidade);
+
         } else if (tipo === "saida") {
+
             if (estoque.quantidade_atual < quantidade) {
                 throw new Error("Estoque insuficiente!");
             }
-            estoque.quantidade_atual -= quantidade;
+
+            estoque.quantidade_atual = estoque.quantidade_atual - Number(quantidade);
+
         } else {
-            throw new Error("Tipo de movimento inválido!");
+            throw new Error("Tipo inválido");
         }
 
-        await estoque.save();
-        return estoque;
-    },
+        // ⬇️ garante que quantidade mínima seja sempre 5
+        estoque.quantidade_minima = 5;
 
-    async atualizarMinimo(idProduto, quantidade_minima) {
-        const estoque = await Estoque.findOne({ where: { idProduto } });
-
-        if (!estoque) throw new Error("Produto não encontrado no estoque!");
-
-        estoque.quantidade_minima = quantidade_minima;
         await estoque.save();
 
-        return estoque;
+        // aviso crítico
+        if (estoque.quantidade_atual <= estoque.quantidade_minima) {
+            return {
+                message: "⚠️ Atenção! Estoque crítico!",
+                estoqueAtual: estoque.quantidade_atual,
+                estoqueCritico: true,
+                estoque
+            };
+        }
+
+        return {
+            message: "Movimentação realizada com sucesso!",
+            estoqueAtual: estoque.quantidade_atual,
+            estoqueCritico: false,
+            estoque
+        };
+
+    } catch (error) {
+        throw new Error(error.message); 
     }
+}
+
+// ==========================
+// EXPORTAR FUNÇÕES
+// ==========================
+module.exports = {
+    listar,
+    movimentar
 };
