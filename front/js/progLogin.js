@@ -31,7 +31,8 @@ btnLogin.addEventListener('click', (e)=>{
             if (valores.usuario.tipo === 'ADMIN') {
                 location.href = './html/produto.html'
             } else {
-                location.href = './pages/cadastro.html'
+                
+                location.href = './html/catalogo.html'
             }
         }, 1500)
     })

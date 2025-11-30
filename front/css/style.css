@@ -113,6 +113,26 @@ form:hover {
     box-shadow: 0 12px 40px rgba(255, 102, 0, 0.25);
 }
 
+/* SOMENTE O FORMULÁRIO DE LOGIN */
+.form-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-login > div {
+    background: #1a1a1a;
+    padding: 30px;
+    width: 380px;
+    border-radius: 10px;
+    border: 2px solid #ff7b00;
+    box-shadow: 0 0 15px #ff7b00aa;
+    color: white;
+    text-align: center;
+}
+
+
 .login-box, .delete-box {
     background: var(--secondary-black);
     padding: 2.5rem;
@@ -190,39 +210,38 @@ button:active {
 }
 
 /* ===== TABELAS ===== */
+/* ===== AJUSTE DA TABELA PARA TELA INTEIRA ===== */
 .table-wrapper {
+    width: 100%;
+    max-width: 1200px;       /* 🔥 deixa a tabela larga */
+    margin: 2rem auto;       /* centraliza */
+    padding: 1rem;
     background: var(--secondary-black);
     border-radius: 12px;
     border: 2px solid var(--border-dark);
-    overflow: hidden;
     box-shadow: 0 8px 32px rgba(255, 102, 0, 0.15);
 }
 
 .tabela {
-    width: 100%;
-    overflow-x: auto;
+    width: 100%;  
+    overflow-x: auto;        /* scroll somente se realmente precisar */
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    background: var(--primary-black);
+    font-size: 1rem;         /* 🔥 aumenta tamanho */
 }
 
 th, td {
-    padding: 1.2rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border-dark);
+    padding: 1rem 1rem;      /* aumenta espaço interno */
+    font-size: 1rem;
 }
 
+/* aumenta cabeçalho */
 th {
-    background: var(--primary-orange);
-    color: var(--primary-black);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 }
+
 
 tr:hover {
     background: rgba(255, 102, 0, 0.1);
@@ -275,6 +294,155 @@ a:hover {
     background: var(--secondary-black);
     border-bottom: 1px solid var(--border-dark);
 }
+
+/* ===== CARD DE PRODUTO ===== */
+
+#listaProdutos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* Cada card */
+.produto {
+    width: 260px;              /* 🔥 TAMANHO DO CARD – você pode ajustar */
+    background: var(--secondary-black);
+    border: 2px solid var(--border-dark);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(255, 102, 0, 0.2);
+    transition: .3s ease;
+}
+
+.produto:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(255, 102, 0, 0.35);
+}
+
+/* Imagem */
+.produto img {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    background: #111;
+    border-radius: 8px;
+}
+
+/* Nome */
+.produto h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff7b00;   /* Laranja Harley */
+    margin: 10px 0 5px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+
+
+/* Descrição */
+.produto p {
+    color: var(--text-gray);
+    font-size: .9rem;
+    margin-top: .3rem;
+    min-height: 40px;
+}
+
+.produto .descricao {
+    font-size: 15px;
+    color: #cfcfcf;
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    font-family: "Poppins", sans-serif;
+}
+
+.produto .preco {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffa31a;
+    text-align: center;
+    margin: 8px 0;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Área do botão e quantidade */
+.controle-produto {
+    margin-top: 1rem;
+}
+
+/* Input */
+.controle-produto input {
+    width: 80px;
+    padding: .5rem;
+    text-align: center;
+}
+
+/* Botão */
+.controle-produto button {
+    margin-top: .7rem;
+    width: 100%;
+    padding: .7rem;
+}   
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    color: #fff;
+    font-size: 14px;
+    background: transparent;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    opacity: 0.8;
+    letter-spacing: .5px;
+}
+
+/* ===== FORMULÁRIO DE CADASTRO DE PRODUTOS (compacto) ===== */
+
+.form-produto {
+    max-width: 480px;
+    margin: 2rem auto;
+    padding: 1.8rem 2rem;
+    background: var(--secondary-black);
+    border: 2px solid var(--border-dark);
+    border-radius: 12px;
+    box-shadow: 0 6px 25px rgba(255, 102, 0, 0.18);
+}
+
+/* Título menor */
+.form-produto h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Inputs menores */
+.form-produto input,
+.form-produto select {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    margin-bottom: 0.8rem;
+}
+
+/* Botão menor */
+.form-produto button {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+}
+
+/* Labels menores */
+.form-produto label {
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
+}
+
 
 /* ===== LAYOUT RESPONSIVO ===== */
 @media (max-width: 1024px) {

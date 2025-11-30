@@ -3,9 +3,9 @@ const Produto = require('../models/Produto')
 // ======================== CRIAR ========================
 async function criarProduto(dados) {
 
-    const { nome, descricao, modelo, preco, imagem_url, ativo } = dados
+    const { nome, descricao, modelo, preco, imagem_url } = dados
 
-    if (!nome || !modelo || !preco) {
+    if (!nome || !modelo || preco === undefined) {
         throw new Error('Nome, modelo e preço são obrigatórios!')
     }
 
@@ -14,12 +14,13 @@ async function criarProduto(dados) {
         descricao,
         modelo,
         preco,
-        imagem_url,
-        ativo
+        imagem_url
+        // ativo = defaultValue: true (automático)
     })
 
     return novoProduto
 }
+
 
 // ======================== LISTAR ========================
 async function listarProdutos() {
