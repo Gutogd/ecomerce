@@ -442,6 +442,23 @@ footer {
     font-size: 0.75rem;
     margin-bottom: 0.3rem;
 }
+.container-gerenciar-produtos {
+    display: flex;
+    justify-content: flex-start;  /* 🔥 empurra tudo levemente para a esquerda */
+    align-items: flex-start;
+    margin-top: 2rem;
+    padding-right: 14rem;           /* 🔥 ajuste fino para a esquerda */
+}
+
+/* Larguras */
+.container-gerenciar-produtos .form-produto {
+    width: 480px;
+}
+
+.container-gerenciar-produtos .delete-box {
+    width: 360px;
+}
+
 
 
 /* ===== LAYOUT RESPONSIVO ===== */

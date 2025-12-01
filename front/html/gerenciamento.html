@@ -6,94 +6,66 @@
 <script src="../js/gerenciarProduto.js" defer></script>
 <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
 
 <header class="header">
-
-<nav class="nav">
-    <span id="usuarioLogado"></span>
+    <nav class="nav">
+        <span id="usuarioLogado"></span>
         <a href="./produto.html">voltar</a>
         <a href="./estoque.html">Gerenciar estoque</a>
         <a href="#" id="btnLogout">Sair</a>
-</nav>
+    </nav>
 </header>
 
 <div class="tabela" id="resListar"></div>
 
+<!-- FORMULÁRIO DE ATUALIZAÇÃO -->
+<div class="container-gerenciar-produtos">
 <form class="form-produto">
 
+    <div class="login-box" id="cadProduto">
+        <h1>Atualizar Produto</h1>
 
+        <label for="id">digite o id</label><br>
+        <input type="number" id="id"><br><br>
 
-    <div class="login-box" id="cadProduto" required>
-<h1>Atualizar Produto</h1>
+        <h2>Insira novos dados</h2>
 
-<label for="id">digite o id</label><br>
-<input type="number" id="id"><br><br>
+        <label for="nome">Digite o nome do produto</label><br>
+        <input type="text" id="nome"><br><br>
 
+        <label for="descricao">Digite a descrição</label><br>
+        <input type="text" id="descricao"><br><br>
 
-<h2>Insira novos dados</h2>
+        <label for="modelo">Digite o modelo</label><br>
+        <input type="text" id="modelo"><br><br>
 
+        <label for="preco">Digite o preço</label><br>
+        <input type="text" id="preco"><br><br>
 
-<label for="nome">digite o nome do produto</label><br>
-<input type="text" id="nome"><br><br>
+        <label for="imagem_url">Digite a imagem do produto</label><br>
+        <input type="text" id="imagem_url"><br><br>
 
+        <button id="btnAtualizarProduto">Atualizar</button>
+        <p class="alerta-atualiza">(Pode atualizar somente um campo)</p>
+    </div>
 
-<label for="descricao">Digite a descricao</label><br>
-<input type="text" id="descricao"><br><br>
+</form>
 
+<!-- FORMULÁRIO DE EXCLUSÃO -->
+<form id="formDelete" class="delete-box">
+    <h1>Apagar Produto</h1>
 
-<label for="modelo">Digite o modelo</label><br>
-<input type="text" id="modelo"><br><br>
+    <label for="codDelete">Digite o id</label><br>
+    <input type="number" id="codDelete"><br><br>
 
-
-<label for="preco">Digite o preço</label><br>
-<input type="text" id="preco"><br><br>
-
-
-<label for="imagem_url">Digite a imagem do produto</label><br>
-<input type="text" id="imagem_url"><br><br>
-
-
-<button id="btnAtualizarProduto">Atualizar</button>
-<p class="alerta-atualiza">(Pode atualizar somente um campo)</p>
-
-</div>
-
-
-<div class="delete-box">
-<h1>Apagar Produto</h1>
-<form id="formDelete">
-<label for="codDelete">digite o id</label><br>
-<input type="number" id="codDelete"><br><br>
-
-
-<button id="btnDelete">Excluir</button>
-<p class="alerta-delete">Esta ação nao pode ser desfeita após a exclusão</p>
+    <button id="btnDelete">Excluir</button>
+    <p class="alerta-delete">Esta ação não pode ser desfeita após a exclusão</p>
 </form>
 </div>
 
-
-<div class="espaco2"></div>
-</div>
-</div>
-</section>
-
-
-
-<form>
-
-
-<footer class="footer">
-
-</footer>
-
-
-
-
-
-
-
-
+<footer class="footer"></footer>
 
 </body>
 </html>
