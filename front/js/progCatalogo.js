@@ -5,19 +5,17 @@ let token = sessionStorage.getItem('token')
 let nome = sessionStorage.getItem('nome')
 let tipo = sessionStorage.getItem('tipo')
 
-// Se não tiver token, redireciona para login
+
 if (!token) {
     location.href = '../index.html'
 }
 
-// Se não for cliente, volta para admin
+
 if (tipo !== 'CLIENTE') {
     location.href = './home.html'
 }
 
-// =========================
-//   UI
-// =========================
+
 let nomeUsuario = document.getElementById('nomeUsuario');
 let btnLogout = document.getElementById('btnLogout');
 
@@ -25,7 +23,6 @@ if (nomeUsuario && nome) {
     nomeUsuario.textContent = 'Usuário: '+ nome
 }
 
-// Logout
 btnLogout.addEventListener("click", (e) => {
     e.preventDefault()
     sessionStorage.clear()
@@ -33,17 +30,18 @@ btnLogout.addEventListener("click", (e) => {
     location.href = '../index.html'
 })
 
-// =========================
-//   PRODUTOS TEMPORÁRIOS
-// =========================
-fetch('http://localhost:3000/produto', {
+
+    fetch('http://localhost:3000/produto', {
     headers: {
         'Authorization': `Bearer ${token}`
     }
 })
 .then(resp => resp.json())
-.then(produtos => {
-    produtos.forEach(prod => {
+.then(data => {
+
+    produtos = data; // <-- agora produtos é global
+
+    data.forEach(prod => {
         lista.innerHTML += `
             <article class="produto">
                 <figure>
@@ -56,42 +54,60 @@ fetch('http://localhost:3000/produto', {
                 </figure>
 
                 <div class="controle-produto">
-                    <input type="number" min="1" value="1" id="qtd-${prod.id}">
-                    <button onclick="add(${prod.id})">Adicionar ao carrinho</button>
+                    <input type="number" min="1" value="1" id="qtd-${prod.codProduto}">
+                    <button onclick="add(${prod.codProduto})">Adicionar ao carrinho</button>
                 </div>
             </article>
-        `
+        `   
     })
 })
 
 
 
-// =========================
-//   RENDERIZAÇÃO DOS CARDS
-// =========================
 let lista = document.getElementById('listaProdutos');
 
 
-// =========================
-//   ADICIONAR AO CARRINHO
-// =========================
 function add(id) {
 
-    let qtd = parseInt(document.getElementById(`qtd-${id}`).value)
+    let qtd = parseInt(document.getElementById(`qtd-${id}`).value);
 
-    let produto = produtos.find(p => p.id === id)
+    let produto = produtos.find(p => Number(p.codProduto) === Number(id));
 
-    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || []
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-    // Adiciona item
     carrinho.push({
-        id: produto.id,
+        id: Number(produto.codProduto),
         nome: produto.nome,
-        qtd: qtd,
-        preco: produto.preco
-    })
+        qtd: Number(qtd),
+        preco: produto.preco,
+        imagem: produto.imagem_url
+    });
 
-    localStorage.setItem('carrinho', JSON.stringify(carrinho))
+    // 🔥 AGRUPA ANTES DE SALVAR
+    carrinho = agruparCarrinho(carrinho);
 
-    alert("Produto adicionado ao carrinho!")
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
+    alert('Produto adicionado ao carrinho!');
+}
+
+
+function agruparCarrinho(carrinho) {
+    let agrupado = [];
+
+    carrinho.forEach(item => {
+        let existente = agrupado.find(p => Number(p.id) === Number(item.id));
+
+        if (existente) {
+            existente.qtd = Number(existente.qtd) + Number(item.qtd);
+        } else {
+            agrupado.push({
+                ...item,
+                id: Number(item.id),
+                qtd: Number(item.qtd)
+            });
+        }
+    });
+
+    return agrupado;
 }

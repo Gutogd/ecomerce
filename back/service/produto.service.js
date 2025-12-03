@@ -1,5 +1,5 @@
 const Produto = require('../models/Produto')
-
+const { ItemPedido } = require('../models/rel')
 // ======================== CRIAR ========================
 async function criarProduto(dados) {
 
@@ -44,15 +44,16 @@ async function atualizarProduto(id, dados) {
 
 // ======================== APAGAR ========================
 async function apagarProduto(id) {
-
     const produto = await Produto.findByPk(id)
+    if (!produto) throw new Error('Produto não encontrado!')
 
-    if (!produto) {
-        throw new Error('Produto não encontrado!')
+    // Checa se existem itens de pedido associados
+    const itens = await ItemPedido.findAll({ where: { idProduto: id } })
+    if (itens.length > 0) {
+        throw new Error('Não é possível apagar este produto pois ele está em pedidos.')
     }
 
     await produto.destroy()
-
     return true
 }
 

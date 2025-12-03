@@ -29,23 +29,30 @@ async function movimentarEstoque(req, res) {
         const { idProduto } = req.params;
         const { tipo, quantidade } = req.body;
 
-        if (!tipo || !quantidade) {
-            return res.status(400).json({ erro: "Dados incompletos!" });
+        let estoque = await Estoque.findOne({ where: { idProduto } });
+
+        if (!estoque) {
+            // Cria um estoque novo se não existir
+            estoque = await Estoque.create({
+                idProduto,
+                quantidade_atual: 0,
+                quantidade_minima: 0
+            });
         }
 
-        const movimento = await movimentar(
-            Number(idProduto),
-            tipo,
-            Number(quantidade)
-        );
+        if (tipo === 'ENTRADA') estoque.quantidade_atual += quantidade;
+        else if (tipo === 'SAIDA') {
+            if (estoque.quantidade_atual < quantidade) {
+                return res.status(400).json({ erro: "Estoque insuficiente" });
+            }
+            estoque.quantidade_atual -= quantidade;
+        }
 
-        return res.status(200).json({
-            mensagem: movimento.message,
-            movimento
-        });
+        await estoque.save();
+        res.status(200).json({ mensagem: "Estoque atualizado com sucesso", estoque });
 
     } catch (err) {
-        return res.status(500).json({ erro: err.message });
+        res.status(500).json({ erro: err.message });
     }
 }
 

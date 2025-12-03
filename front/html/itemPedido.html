@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Pedido</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../assets/logo2.png" type="image/x-icon">
+</head>
+<body>
+<header class="header">
+    <nav class="nav">
+        <span id="usuarioLogado"></span>
+        <a href="./catalogo.html">voltar</a>
+        <a href="#" id="btnLogout">Sair</a>
+    </nav>
+<h1>Meus Pedidos</h1>
+
+<div id="containerPedidos"></div> <!-- container para listar todos os pedidos -->
+
+<table id="tabelaPedido">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Preço Unitário</th>
+            <th>Quantidade</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<p>Total do Pedido: R$ <span id="totalPedido">0.00</span></p>
+
+<!-- Botões -->
+<div class="botoes">
+    <button id="btnCatalogo">Voltar para o Catálogo</button>
+   
+</div>
+
+    <script src="../js/itemPedido.js"></script>
+</body>
+</html>

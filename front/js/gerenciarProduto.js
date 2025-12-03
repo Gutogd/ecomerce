@@ -69,24 +69,34 @@ btnAtualizarProduto.addEventListener('click', (e) => {
 
 
 // ===================== DELETE =====================
-document.getElementById('formDelete').addEventListener('submit', (e) => {
+document.getElementById('formDelete').addEventListener('submit', async (e) => {
     e.preventDefault()
 
     let id = Number(document.getElementById('codDelete').value)
     const token = sessionStorage.getItem('token')
 
-    fetch(`http://localhost:3000/produto/${id}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
-    })
-    .then(resp => resp.json())
-    .then(() => {
-        alert("Produto apagado!")
-        carregarProdutos()
-    })
-    .catch(err => console.error("Erro ao apagar:", err))
-})
+    try {
+        const resp = await fetch(`http://localhost:3000/produto/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
 
+        const resultado = await resp.json();
+
+        if (!resp.ok) {
+            // Mostra a mensagem de erro do backend
+            alert(resultado.erro || "Erro ao apagar produto");
+            return;
+        }
+
+        alert("Produto apagado com sucesso!");
+        carregarProdutos();
+
+    } catch (err) {
+        console.error("Erro ao apagar:", err);
+        alert("Erro inesperado ao apagar produto");
+    }
+});
 function gerarTabela(dados) {
     let tabela = `
         <table>

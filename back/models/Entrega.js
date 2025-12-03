@@ -44,20 +44,7 @@ const Entrega = db.define('entrega',{
         type: DataTypes.STRING(12), 
         allowNull: false 
     },    
-    dataEstimada: {
-        type: DataTypes.DATEONLY,
-        allowNull: true
-    },
-    codigoRastreio: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-        unique: true
-    },
-    statusEntrega: {
-        type: DataTypes.ENUM('EM_TRANSITO', 'SAIU_PARA_ENTREGA', 'ENTREGUE', 'EXTRAVIADO'),
-        allowNull: false,
-        defaultValue: 'EM_TRANSITO'
-    }
+   
 },{
     timestamps: false,
     tableName: 'entregas'

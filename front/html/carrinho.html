@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../assets/logo2.png" type="image/x-icon">
+     <script src="../js/progCarrinho.js" defer></script>
+</head>
+<body>
+    <header class="header">
+    <nav class="nav">
+        <img src="../assets/logo.png" alt="Harley Logo" class="logo">
+        <span id="usuarioLogado"></span>
+        <a href="./catalogo.html">voltar</a>
+        <a href="#" id="btnLogout">Sair</a>
+    </nav>
+</header>
+
+    <main>
+        <!-- Seção para os itens do carrinho -->
+        <section id="listaCarrinho">
+            <p>Carregando carrinho...</p>
+        </section>
+        
+        <!-- Seção para o total -->
+        <section id="resumoCarrinho">
+            <h2>Resumo do Pedido</h2>
+            <p>Total de itens: <span id="totalItens">0</span></p>
+            <p>Valor total: R$ <span id="valorTotal">0.00</span></p>
+        </section>
+
+        <footer>
+            <button id="btnFinalizar">Finalizar Compra</button>
+            <button id="btnLimpar" class="btn-limpar">Limpar Carrinho</button>
+
+        </footer>
+    </main>
+
+   <footer class="footer">
+        <p>© 2025 Harley Davidson's. Todos os direitos reservados.</p>
+        
+    </footer>
+   
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endereço de Entrega</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../assets/logo2.png" type="image/x-icon">
+    <script src="../js/progEndereco.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+    <nav class="nav">
+        <img src="../assets/logo.png" alt="Harley Logo" class="logo">
+        <span id="usuarioLogado"></span>
+        <a href="./carrinho.html">Voltar</a>
+        <a href="#" id="btnLogout">Sair</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Endereço de Entrega</h2>
+
+    <form id="formEntrega">
+
+        <!-- CEP -->
+        <label for="cep">CEP</label>
+        <input type="text" id="cep" maxlength="9" required>
+
+        <!-- Logradouro -->
+        <label for="logradouro">rua</label>
+        <input type="text" id="logradouro" maxlength="70" required>
+
+        <!-- Complemento -->
+        <label for="complemento">Complemento (opcional)</label>
+        <input type="text" id="complemento" maxlength="100">
+
+        <!-- Bairro -->
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" maxlength="70" required>
+
+        <!-- Cidade -->
+        <label for="localidade">Cidade</label>
+        <input type="text" id="localidade" maxlength="70" required>
+
+        <!-- UF -->
+        <label for="uf">Estado (UF)</label>
+        <input type="text" id="uf" maxlength="2" required>
+
+        <!-- Número -->
+        <label for="numero">Número</label>
+        <input type="text" id="numero" maxlength="12" required>
+     
+        <button type="submit" id="btnConfirmar">Confirmar Endereço</button>
+
+    </form>
+
+</main>
+<footer class="footer">
+        <p>© 2025 Harley Davidson's. Todos os direitos reservados.</p>
+        
+    </footer>
+</body>
+</html>
