@@ -1,18 +1,15 @@
+const { Estoque } = require('../models/rel');
 const {
     listar,
     movimentar,
     atualizarMinimo
 } = require('../service/estoque.service');
-
 // =========================
 //   LISTAR ESTOQUE
 // =========================
 async function listarEstoque(req, res) {
     try {
         const itens = await listar();
-
-        // Garantir que está vindo array
-        console.log("Resultado do listar():", itens);
 
         return res.status(200).json(itens);
     } catch (err) {
@@ -29,6 +26,7 @@ async function movimentarEstoque(req, res) {
         const { idProduto } = req.params;
         const { tipo, quantidade } = req.body;
 
+        
         let estoque = await Estoque.findOne({ where: { idProduto } });
 
         if (!estoque) {
